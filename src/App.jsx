@@ -37,8 +37,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <div>Request Method: {this.state.requestParams.method}</div>
-        <div>URL: {this.state.requestParams.url}</div>
+        <div className='headerMethod'>Request Method:</div>
+        <div className='headerMethodOut'>{this.state.requestParams.method}</div>
+        <div className='headerMethod'>URL:</div>
+        <div className='headerURL'>{this.state.requestParams.url}</div>
         <Form handleApiCall={this.callApi} />
         <Results data={this.state.data} />
         <Footer />
