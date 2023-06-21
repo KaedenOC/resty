@@ -3,13 +3,20 @@ import React, { useState } from 'react';
 import './Form.scss';
 
 // 'https://pokeapi.co/api/v2/pokemon'
-
+//Form component receieves props and the handleApiCall function is extracted from the props
 function Form(props) {
 
   let apiCall = props.handleApiCall;
+  //two state variables are defined using useState
   const [method, setMethod] = useState('GET');
   const [url, setURL] = useState('');
-  
+
+  //handles click events on the method options, takes selectedMethod as an argument, and updates the method state.
+  const handleMethodClick = (selectedMethod) => {
+    setMethod(selectedMethod);
+  }
+
+  //called when the form is submitted
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
@@ -19,28 +26,44 @@ function Form(props) {
     apiCall(formData);
   }
 
-    return (
-      <>
-        <form onSubmit={handleSubmit}>
-          <label >
-            <span>URL: </span>
-            <input 
-            name='url' 
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label >
+          <span>URL: </span>
+          <input
+            name='url'
             type='text'
             value={url}
-            onChange={(e) => setURL(e.target.value)} 
-            />
-            <button type="submit">GO!</button>
-          </label>
-          <label className="methods">
-            <span id="get">GET</span>
-            <span id="post">POST</span>
-            <span id="put">PUT</span>
-            <span id="delete">DELETE</span>
-          </label>
-        </form>
-      </>
-    );
+            onChange={(e) => setURL(e.target.value)}
+          />
+          <button type="submit">GO!</button>
+        </label>
+        <label className="methods">
+          <span
+            id="get"
+            className={method === 'GET' ? 'active' : ''}
+            onClick={() => handleMethodClick('GET')}
+          >GET</span>
+          <span
+            id="post"
+            className={method === 'POST' ? 'active-post' : ''}
+            onClick={() => handleMethodClick('POST')}
+          >POST</span>
+          <span
+            id="put"
+            className={method === 'PUT' ? 'active-put' : ''}
+            onClick={() => handleMethodClick('PUT')}
+          >PUT</span>
+          <span
+            id="delete"
+            className={method === 'DELETE' ? 'active-delete' : ''}
+            onClick={() => handleMethodClick('DELETE')}
+          >DELETE</span>
+        </label>
+      </form>
+    </>
+  );
 }
 
 export default Form;

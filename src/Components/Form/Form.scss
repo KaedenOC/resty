@@ -19,8 +19,20 @@ form {
         padding: .25rem .5rem;
         background: #ccc;
 
-        &:hover, &.active {
-          background: #ffffff5d;
+        &:hover {
+          background: #6360605d;
+        }
+        &.active {
+          background-color: aquamarine;
+        }
+        &.active-post {
+          background-color: yellow;
+        }
+        &.active-put {
+          background-color: blue;
+        }
+        &.active-delete {
+          background-color: red;
         }
       }
     }
