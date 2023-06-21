@@ -15,18 +15,24 @@ function App () {
 
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const callApi = (requestParams) => {
-    // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-      ],
-    };
-    setData(data);
-    setRequestParams(requestParams);
+    setLoading(true);
+    setTimeout(() => {
+      // mock output
+      const data = {
+        count: 2,
+        results: [
+          {name: 'fake thing 1', url: 'http://fakethings.com/1'},
+          {name: 'fake thing 2', url: 'http://fakethings.com/2'},
+        ],
+      };
+      setData(data);
+      setRequestParams(requestParams);
+      setLoading(false);
+
+    }, 700);
   };
 
     return (
@@ -37,7 +43,7 @@ function App () {
         <div className='headerMethod'>URL:</div>
         <div className='headerURL'>{requestParams.url}</div>
         <Form handleApiCall={callApi} />
-        <Results data={data} />
+        <Results data={data} loading={loading}/>
         <Footer />
       </React.Fragment>
     );
