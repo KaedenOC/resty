@@ -18,7 +18,7 @@ function App() {
   const [requestParams, setRequestParams] = useState({});
   const [loading, setLoading] = useState(false);
 
-  
+  //responsible for fetching data from an api based on requestParams state variable and updates the data state with the received response. 
   useEffect(() => {
     async function getData() {
       try {
@@ -27,11 +27,11 @@ function App() {
           let response = await axios.get(requestParams.url);
           setData(response.data.results);
           // setLoading(false);
-          setData({
-            count: response.data.count,
-            pagination: response.data.pagination,
-            results: response.data.results
-          })
+          // setData({
+          //   count: response.data.count,
+          //   pagination: response.data.pagination,
+          //   results: response.data.results
+          // })
         }
         if (requestParams.method === 'POST') {
           let response = await axios.post(requestParams.url, data);
@@ -60,8 +60,9 @@ function App() {
       setLoading(true);
       setRequestParams(requestParams);
       setLoading(false);
+      
 
-    }, 500);
+    }, 1000);
   };
 
   return (
