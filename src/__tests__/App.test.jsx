@@ -1,5 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+// import {setupServer} from 'msw/node';
+// import {rest} from 'msw';
 import App from '../App';
 
 test('renders data in the output area upon form submission', async () => {
@@ -23,3 +25,13 @@ test('renders data in the output area upon form submission', async () => {
   expect(screen.getByText(/fake thing 1/i)).toBeInTheDocument();
   expect(screen.getByText(/fake thing 2/i)).toBeInTheDocument();
 });
+
+// const server = setupServer(
+//   rest.get('https://pokeapi.co/api/v2/pokemon'), (req, res, ctx) => {
+//     return res(
+//       ctx.json({
+//         results: ['result1', 'result2', 'result3'],
+//       })
+//     )
+//   }
+// )

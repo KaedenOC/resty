@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import './App.scss';
 
@@ -11,42 +12,71 @@ import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
 
-function App () {
+function App() {
 
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
   const [loading, setLoading] = useState(false);
 
+  //responsible for fetching data from an api based on requestParams state variable and updates the data state with the received response. 
+  useEffect(() => {
+    async function getData() {
+      try {
+        if (requestParams.method === 'GET') {
+          // setLoading(true);
+          let response = await axios.get(requestParams.url);
+          setData(response.data.results);
+          // setLoading(false);
+          // setData({
+          //   count: response.data.count,
+          //   pagination: response.data.pagination,
+          //   results: response.data.results
+          // })
+        }
+        if (requestParams.method === 'POST') {
+          let response = await axios.post(requestParams.url, data);
+          setData(response.data.results);
+        }
+        if (requestParams.method === 'PUT') {
+          let response = await axios.put(requestParams.url, data);
+          setData(response.data.results);
+        }
+        if (requestParams.method === 'DELETE') {
+          let response = await axios.delete(requestParams.url);
+          setData(response.data.results);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (requestParams.method && requestParams.url) {
+      getData();
+    }
+
+  }, [requestParams, data]);
+  // 'https://pokeapi.co/api/v2/pokemon'
   const callApi = (requestParams) => {
-    setLoading(true);
     setTimeout(() => {
-      // mock output
-      const data = {
-        count: 2,
-        results: [
-          {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-          {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-        ],
-      };
-      setData(data);
+      setLoading(true);
       setRequestParams(requestParams);
       setLoading(false);
+      
 
-    }, 700);
+    }, 1000);
   };
 
-    return (
-      <React.Fragment>
-        <Header />
-        <div className='headerMethod'>Request Method:</div>
-        <div className='headerMethodOut'>{requestParams.method}</div>
-        <div className='headerMethod'>URL:</div>
-        <div className='headerURL'>{requestParams.url}</div>
-        <Form handleApiCall={callApi} />
-        <Results data={data} loading={loading}/>
-        <Footer />
-      </React.Fragment>
-    );
+  return (
+    <>
+      <Header />
+      <div className='headerMethod'>Request Method:</div>
+      <div className='headerMethodOut'>{requestParams.method}</div>
+      <div className='headerMethod'>URL:</div>
+      <div className='headerURL'>{requestParams.url}</div>
+      <Form handleApiCall={callApi} />
+      <Results data={data} loading={loading} />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
