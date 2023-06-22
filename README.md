@@ -42,6 +42,8 @@
 
 - [LAB 27 SANDBOX](https://codesandbox.io/p/github/KaedenOC/resty/state?workspaceId=6d0a53bd-a69d-4182-88d0-5418dc523e44)
 
+- [LAB 28 SANDBOX](https://codesandbox.io/p/github/KaedenOC/resty/effect-hook?workspaceId=6d0a53bd-a69d-4182-88d0-5418dc523e44)
+
 ## Available Scripts
 
 In the project directory, you can run:
