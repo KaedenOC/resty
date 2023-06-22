@@ -10,6 +10,7 @@ function Form(props) {
   //two state variables are defined using useState
   const [method, setMethod] = useState('GET');
   const [url, setURL] = useState('');
+  const [requestData, setRequestData] = useState('');
 
   //handles click events on the method options, takes selectedMethod as an argument, and updates the method state.
   const handleMethodClick = (selectedMethod) => {
@@ -22,6 +23,7 @@ function Form(props) {
     const formData = {
       method: method,
       url: url,
+      requestData: requestData
     };
     apiCall(formData);
   }
@@ -61,6 +63,16 @@ function Form(props) {
             onClick={() => handleMethodClick('DELETE')}
           >DELETE</span>
         </label>
+        {method === 'POST' || method === 'PUT' ? (
+             <label>
+             <span>Request Data (JSON): </span>
+             <textarea
+               name='requestData'
+               value={requestData}
+               onChange={(e) => setRequestData(e.target.value)}
+             ></textarea>
+           </label>
+          ) : null}
       </form>
     </>
   );
